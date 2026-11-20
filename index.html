@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joy Fashion — Fashion &amp; Clothing Store in Dhaka | Joy Pramanik</title>
+<meta name="description" content="Joy Fashion — quality fashion and clothing in Dhaka, Bangladesh. Panjabi, saree, kurti, t-shirts, hoodies, jeans and more. Cash on Delivery available.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="#top">👗 Joy Fashion</a>
+  <nav>
+    <a href="#shop">Shop</a>
+    <a href="#orders">My Orders</a>
+    <a href="#about">About</a>
+    <button class="cart-btn" id="cart-open">🛒 Cart (<span id="cart-count">0</span>)</button>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <p class="eyebrow">Dhaka, Bangladesh • Cash on Delivery</p>
+    <h1>Style that fits<br>your everyday.</h1>
+    <p class="lede">Panjabi, saree, kurti, t-shirts, hoodies and jeans — quality fashion at honest prices. Free delivery inside Dhaka on orders over ৳2,000.</p>
+    <div class="cta">
+      <a class="btn" href="#shop">Shop now</a>
+      <a class="btn ghost" href="#shop" data-cat="Men">Men's Collection</a>
+      <a class="btn ghost" href="#shop" data-cat="Women">Women's Collection</a>
+    </div>
+    <p class="trust">✓ Cash on Delivery &nbsp;•&nbsp; ✓ Easy 7-day exchange &nbsp;•&nbsp; ✓ bKash / Nagad accepted</p>
+  </section>
+
+  <section id="shop" class="section">
+    <h2>Shop</h2>
+    <div class="toolbar">
+      <input type="search" id="search" placeholder="Search products… e.g. panjabi, saree, hoodie">
+      <select id="category">
+        <option value="All">All categories</option>
+        <option value="Men">Men</option>
+        <option value="Women">Women</option>
+        <option value="Kids">Kids</option>
+        <option value="Accessories">Accessories</option>
+      </select>
+      <select id="sort">
+        <option value="featured">Featured</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="rating">Top rated</option>
+      </select>
+    </div>
+    <p id="result-count" class="muted"></p>
+    <div id="products" class="grid"></div>
+  </section>
+
+  <section id="orders" class="section">
+    <h2>My Orders</h2>
+    <p class="muted">Orders placed on this device are saved in your browser. This is a demo store — no real payment is taken.</p>
+    <div id="order-list" class="cards"></div>
+  </section>
+
+  <section id="about" class="section">
+    <h2>About Joy Fashion</h2>
+    <p>Joy Fashion is a small fashion store in Dhaka, Bangladesh, run by <strong>Joy Pramanik</strong>. We pick comfortable, good-quality clothing at prices students and families can afford.</p>
+    <p>📍 Dhaka, Bangladesh &nbsp;•&nbsp; 📧 <a href="mailto:joypk827@gmail.com">joypk827@gmail.com</a> &nbsp;•&nbsp; 💬 Delivery: Dhaka ৳60, Outside Dhaka ৳120, Free over ৳2,000</p>
+    <p class="muted">Shop owner: to change products, prices or the shop name, edit the PRODUCTS list in <code>script.js</code> — see README.md.</p>
+  </section>
+</main>
+
+<!-- Cart drawer -->
+<aside id="cart-drawer" class="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <h3>Your Cart</h3>
+    <button id="cart-close" class="icon-btn">✕</button>
+  </div>
+  <div id="cart-items"></div>
+  <div class="cart-summary">
+    <p>Subtotal: <strong id="cart-subtotal">৳0</strong></p>
+    <label>Delivery area
+      <select id="delivery-area">
+        <option value="60">Dhaka — ৳60</option>
+        <option value="120">Outside Dhaka — ৳120</option>
+      </select>
+    </label>
+    <p class="muted" id="delivery-note"></p>
+    <p class="total">Total: <strong id="cart-total">৳0</strong></p>
+    <button class="btn" id="checkout-btn" style="width:100%">Checkout</button>
+  </div>
+</aside>
+<div id="drawer-backdrop" class="backdrop"></div>
+
+<!-- Checkout modal -->
+<div id="checkout-modal" class="modal" aria-hidden="true">
+  <div class="modal-card">
+    <h3>Checkout</h3>
+    <p class="muted">Demo checkout — no real payment is taken.</p>
+    <form id="checkout-form">
+      <label>Full name <input required id="co-name" placeholder="Your name"></label>
+      <label>Phone <input required id="co-phone" placeholder="01XXXXXXXXX" pattern="[0-9+\- ]{11,15}"></label>
+      <label>Address <textarea required id="co-address" placeholder="House, Road, Area"></textarea></label>
+      <label>City <input required id="co-city" value="Dhaka"></label>
+      <label>Payment
+        <select id="co-payment">
+          <option>Cash on Delivery</option>
+          <option>bKash</option>
+          <option>Nagad</option>
+        </select>
+      </label>
+      <p class="total">Payable: <strong id="co-total">৳0</strong></p>
+      <button class="btn" type="submit" style="width:100%">Place order</button>
+      <button class="btn outline" type="button" id="checkout-cancel" style="width:100%;margin-top:8px">Cancel</button>
+    </form>
+    <div id="order-success" style="display:none">
+      <h3>✅ Order placed!</h3>
+      <p>Order ID: <strong id="order-id"></strong></p>
+      <p class="muted">Thank you! We will call you to confirm. Your order is saved under My Orders.</p>
+      <button class="btn" id="order-done" style="width:100%">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Quick view modal -->
+<div id="quick-modal" class="modal" aria-hidden="true">
+  <div class="modal-card">
+    <button id="quick-close" class="icon-btn" style="float:right">✕</button>
+    <div id="quick-body"></div>
+  </div>
+</div>
+
+<footer>
+  <p>© <span id="year">2026</span> Joy Fashion · Dhaka, Bangladesh · Built by Joy Pramanik</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
