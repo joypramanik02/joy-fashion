@@ -10,9 +10,10 @@ Open `index.html` in a browser, or enable GitHub Pages from this repository (Set
 
 ## What's inside
 
+- `admin.html` + `admin.js` — Admin panel: login (default password `admin123`, change it in `admin.js`), dashboard stats, edit/delete products, add new products, view and update orders, export products/orders as JSON and orders as CSV for Excel
 - `index.html` — Hero, shop, My Orders, About, cart drawer, checkout & quick-view modals
 - `style.css` — Responsive styling, no framework needed
-- `script.js` — 12 products, search / filter / sort, wishlist, cart, delivery, demo checkout, orders in localStorage
+- `script.js` — 12 products, search / filter / sort, wishlist, cart, delivery, demo checkout, orders in localStorage (admin edits in `jf_admin_products` override the default products)
 - `README.md` — This file
 
 ## Features
