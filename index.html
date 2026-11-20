@@ -8,10 +8,12 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="announce">🔥 Winter Sale — Up to 30% Off &nbsp;•&nbsp; Free delivery inside Dhaka on orders over ৳2,000</div>
 <header class="nav">
   <a class="logo" href="#top">👗 Joy Fashion</a>
   <nav>
     <a href="#shop">Shop</a>
+    <a href="#categories">Categories</a>
     <a href="#orders">My Orders</a>
     <a href="#about">About</a>
     <button class="cart-btn" id="cart-open">🛒 Cart (<span id="cart-count">0</span>)</button>
@@ -20,15 +22,47 @@
 
 <main id="top">
   <section class="hero">
-    <p class="eyebrow">Dhaka, Bangladesh • Cash on Delivery</p>
-    <h1>Style that fits<br>your everyday.</h1>
-    <p class="lede">Panjabi, saree, kurti, t-shirts, hoodies and jeans — quality fashion at honest prices. Free delivery inside Dhaka on orders over ৳2,000.</p>
-    <div class="cta">
-      <a class="btn" href="#shop">Shop now</a>
-      <a class="btn ghost" href="#shop" data-cat="Men">Men's Collection</a>
-      <a class="btn ghost" href="#shop" data-cat="Women">Women's Collection</a>
+    <div class="hero-inner">
+      <span class="hero-badge">✨ New Collection 2026</span>
+      <h1>Style that fits<br>your everyday.</h1>
+      <p class="lede">Panjabi, saree, kurti, t-shirts, hoodies and jeans — quality fashion at honest prices, delivered to your door in Dhaka.</p>
+      <div class="cta">
+        <a class="btn" href="#shop">Shop now →</a>
+        <a class="btn ghost" href="#shop" data-cat="Men">Men's Collection</a>
+        <a class="btn ghost" href="#shop" data-cat="Women">Women's Collection</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>12+</strong><span>Products</span></div>
+        <div><strong>COD</strong><span>Cash on Delivery</span></div>
+        <div><strong>7 days</strong><span>Easy exchange</span></div>
+      </div>
     </div>
-    <p class="trust">✓ Cash on Delivery &nbsp;•&nbsp; ✓ Easy 7-day exchange &nbsp;•&nbsp; ✓ bKash / Nagad accepted</p>
+  </section>
+
+  <section id="categories" class="section">
+    <h2>Shop by Category</h2>
+    <p class="muted">Pick your style — one click, and the shop filters for you.</p>
+    <div class="cat-grid">
+      <a class="cat-card" href="#shop" data-cat="Men">
+        <img src="https://images.unsplash.com/photo-1610652492500-ded49ceeb378?w=800&q=80&auto=format&fit=crop" alt="Men's fashion" loading="lazy">
+        <span>Men <small>Shirts • Jeans • Blazer</small></span>
+      </a>
+      <a class="cat-card" href="#shop" data-cat="Women">
+        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80&auto=format&fit=crop" alt="Women's fashion" loading="lazy">
+        <span>Women <small>Saree • Gown • Kurti</small></span>
+      </a>
+      <a class="cat-card" href="#shop" data-cat="Kids">
+        <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&q=80&auto=format&fit=crop" alt="Kids fashion" loading="lazy">
+        <span>Kids <small>Raincoat • Formal set</small></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div><span class="f-icon">💵</span><strong>Cash on Delivery</strong><p>Pay when your order arrives.</p></div>
+    <div><span class="f-icon">🚚</span><strong>Fast Delivery</strong><p>Dhaka ৳60, outside Dhaka ৳120.</p></div>
+    <div><span class="f-icon">🔄</span><strong>Easy Exchange</strong><p>7-day easy size exchange.</p></div>
+    <div><span class="f-icon">✅</span><strong>Quality Checked</strong><p>Every item checked before packing.</p></div>
   </section>
 
   <section id="shop" class="section">
@@ -51,6 +85,14 @@
     </div>
     <p id="result-count" class="muted"></p>
     <div id="products" class="grid"></div>
+  </section>
+
+  <section class="banner">
+    <div class="banner-inner">
+      <h2>Winter Collection is here ❄️</h2>
+      <p>Warm hoodies, blazers and cosy kids wear — up to 30% off this season.</p>
+      <a class="btn" href="#shop" data-cat="Men">Shop Winter Picks</a>
+    </div>
   </section>
 
   <section id="orders" class="section">
