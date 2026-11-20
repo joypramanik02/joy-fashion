@@ -17,7 +17,8 @@ Open `index.html` in a browser, or enable GitHub Pages from this repository (Set
 
 ## Features
 
-- 12 fashion products: Panjabi, saree, kurti, salwar kameez, shirts, jeans, hoodie, kids wear, accessories
+- 12 fashion products with real photos: handloom sarees, casual shirt, jeans, hoodie, party gown, formal blazer, t-shirts, kids raincoat and formal set, leather wallet
+- Photos are stored in the `images/` folder, so the site works offline and on GitHub Pages without hotlinking
 - Search, category filter (Men / Women / Kids / Accessories), sort by price and rating
 - Quick view with size selection, wishlist (♥), Add to Cart
 - Cart with quantity control, subtotal, delivery charge (Dhaka ৳60, Outside Dhaka ৳120, free over ৳2,000)

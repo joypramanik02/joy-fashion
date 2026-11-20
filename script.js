@@ -1,18 +1,18 @@
 // Joy Fashion — demo store. Edit PRODUCTS below to change products, prices or stock.
 // Prices in BDT. No real payment is taken — checkout is a demo order saved in localStorage.
 const PRODUCTS = [
-  { id: 1, name: "Premium Cotton Panjabi — Navy", cat: "Men", emoji: "👔", price: 1450, old: 1890, rating: 4.8, reviews: 42, stock: 12, sizes: ["M", "L", "XL", "XXL"], desc: "Soft premium cotton panjabi, perfect for Eid and family events." },
-  { id: 2, name: "Classic White Panjabi", cat: "Men", emoji: "🤍", price: 1250, old: 1550, rating: 4.7, reviews: 31, stock: 9, sizes: ["M", "L", "XL"], desc: "Clean white panjabi with subtle embroidery on the collar." },
-  { id: 3, name: "Men's Casual Shirt — Sky Blue", cat: "Men", emoji: "👕", price: 950, old: 1250, rating: 4.6, reviews: 28, stock: 15, sizes: ["M", "L", "XL"], desc: "Breathable casual shirt for everyday wear in Dhaka weather." },
-  { id: 4, name: "Slim Fit Jeans — Dark Blue", cat: "Men", emoji: "👖", price: 1350, old: 1750, rating: 4.7, reviews: 36, stock: 11, sizes: ["30", "32", "34", "36"], desc: "Stretchable slim-fit jeans, comfortable all day." },
-  { id: 5, name: "Men's Hoodie — Black", cat: "Men", emoji: "🧥", price: 1150, old: 1500, rating: 4.8, reviews: 54, stock: 8, sizes: ["M", "L", "XL"], desc: "Warm fleece hoodie with kangaroo pocket." },
-  { id: 6, name: "Handloom Saree — Red & Gold", cat: "Women", emoji: "🥻", price: 2450, old: 3200, rating: 4.9, reviews: 47, stock: 6, sizes: ["Free Size"], desc: "Beautiful handloom saree for weddings and festivals." },
-  { id: 7, name: "Printed Kurti — Floral", cat: "Women", emoji: "👗", price: 1050, old: 1400, rating: 4.6, reviews: 39, stock: 14, sizes: ["S", "M", "L", "XL"], desc: "Light floral kurti, comfortable for daily wear." },
-  { id: 8, name: "Salwar Kameez Set — Teal", cat: "Women", emoji: "👚", price: 1650, old: 2100, rating: 4.7, reviews: 33, stock: 10, stockNote: "", sizes: ["S", "M", "L"], desc: "Three-piece salwar kameez set with dupatta." },
-  { id: 9, name: "Women's T-Shirt — Pink", cat: "Women", emoji: "🎀", price: 650, old: 850, rating: 4.5, reviews: 61, stock: 20, sizes: ["S", "M", "L"], desc: "Soft cotton t-shirt, regular fit." },
-  { id: 10, name: "Kids T-Shirt Set (2 pcs)", cat: "Kids", emoji: "🧒", price: 750, old: 990, rating: 4.8, reviews: 22, stock: 16, sizes: ["4-5Y", "6-7Y", "8-9Y"], desc: "Colourful, soft cotton t-shirts for kids." },
-  { id: 11, name: "Kids Frock — Yellow", cat: "Kids", emoji: "👧", price: 950, old: 1250, rating: 4.7, reviews: 18, stock: 7, sizes: ["4-5Y", "6-7Y"], desc: "Pretty yellow frock for little ones." },
-  { id: 12, name: "Leather Wallet + Belt Combo", cat: "Accessories", emoji: "👜", price: 850, old: 1150, rating: 4.6, reviews: 29, stock: 13, sizes: ["Free Size"], desc: "Genuine-style leather wallet and belt combo gift set." },
+  { id: 1, name: "Handloom Saree — Purple & Gold", cat: "Women", img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80&auto=format&fit=crop", price: 2450, old: 3200, rating: 4.9, reviews: 47, stock: 6, sizes: ["Free Size"], desc: "Beautiful handloom saree with gold border, perfect for weddings and festivals." },
+  { id: 2, name: "Handloom Saree — Black & Gold", cat: "Women", img: "https://images.unsplash.com/photo-1610030469668-8e9f641aaf27?w=800&q=80&auto=format&fit=crop", price: 2350, old: 3100, rating: 4.8, reviews: 33, stock: 5, sizes: ["Free Size"], desc: "Elegant black handloom saree with gold zari work." },
+  { id: 3, name: "Men's Casual Shirt — Sky Blue", cat: "Men", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&q=80&auto=format&fit=crop", price: 950, old: 1250, rating: 4.6, reviews: 28, stock: 15, sizes: ["M", "L", "XL"], desc: "Breathable casual shirt for everyday wear in Dhaka weather." },
+  { id: 4, name: "Slim Fit Jeans — Dark Blue", cat: "Men", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&q=80&auto=format&fit=crop", price: 1350, old: 1750, rating: 4.7, reviews: 36, stock: 11, sizes: ["30", "32", "34", "36"], desc: "Stretchable slim-fit jeans, comfortable all day." },
+  { id: 5, name: "Men's Hoodie — Grey", cat: "Men", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80&auto=format&fit=crop", price: 1150, old: 1500, rating: 4.8, reviews: 54, stock: 8, sizes: ["M", "L", "XL"], desc: "Warm fleece hoodie with kangaroo pocket." },
+  { id: 6, name: "Women's Party Gown — Red", cat: "Women", img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80&auto=format&fit=crop", price: 2850, old: 3600, rating: 4.9, reviews: 21, stock: 4, sizes: ["S", "M", "L"], desc: "Flowing red party gown for special occasions." },
+  { id: 7, name: "Men's Formal Blazer — Black", cat: "Men", img: "https://images.unsplash.com/photo-1610652492500-ded49ceeb378?w=800&q=80&auto=format&fit=crop", price: 2950, old: 3900, rating: 4.8, reviews: 19, stock: 5, sizes: ["M", "L", "XL"], desc: "Sharp black formal blazer for office and events." },
+  { id: 8, name: "Men's Classic T-Shirt — White", cat: "Men", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80&auto=format&fit=crop", price: 650, old: 850, rating: 4.6, reviews: 61, stock: 20, sizes: ["S", "M", "L", "XL"], desc: "Soft premium cotton t-shirt, regular fit." },
+  { id: 9, name: "Men's T-Shirt — Black", cat: "Men", img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80&auto=format&fit=crop", price: 750, old: 990, rating: 4.5, reviews: 44, stock: 18, sizes: ["S", "M", "L", "XL"], desc: "Classic black cotton t-shirt, comfortable everyday wear." },
+  { id: 10, name: "Kids Raincoat — Yellow", cat: "Kids", img: "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=800&q=80&auto=format&fit=crop", price: 950, old: 1250, rating: 4.7, reviews: 18, stock: 9, sizes: ["4-5Y", "6-7Y"], desc: "Bright yellow raincoat with hood — kids love it on rainy days." },
+  { id: 11, name: "Kids Formal Set — Blue", cat: "Kids", img: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&q=80&auto=format&fit=crop", price: 1250, old: 1650, rating: 4.8, reviews: 26, stock: 7, sizes: ["4-5Y", "6-7Y", "8-9Y"], desc: "Smart blue cardigan and shorts set with bow tie for little gentlemen." },
+  { id: 12, name: "Leather Wallet — Brown", cat: "Accessories", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&q=80&auto=format&fit=crop", price: 850, old: 1150, rating: 4.6, reviews: 29, stock: 13, sizes: ["Free Size"], desc: "Genuine-style brown leather wallet, slim and durable." },
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -41,7 +41,7 @@ function renderProducts() {
   $("result-count").textContent = `${list.length} product(s) found`;
   $("products").innerHTML = list.length ? list.map(p => `
     <article class="product">
-      <div class="thumb" onclick="openQuick(${p.id})">${p.emoji}</div>
+      <div class="thumb" onclick="openQuick(${p.id})"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
       <div class="body">
         <span class="cat">${p.cat}</span>
         <h3 onclick="openQuick(${p.id})">${p.name}</h3>
@@ -54,7 +54,7 @@ function renderProducts() {
         </div>
       </div>
     </article>`).join("")
-    : `<div class="empty">No products match your search. Try “panjabi”, “saree” or “hoodie”.</div>`;
+    : `<div class="empty">No products match your search. Try “saree”, “blazer” or “hoodie”.</div>`;
 }
 
 window.toggleWish = function (id, btn) {
@@ -73,7 +73,7 @@ window.openQuick = function (id) {
   const p = PRODUCTS.find(x => x.id === id); if (!p) return;
   quickId = id; selectedSize = p.sizes[0];
   $("quick-body").innerHTML = `
-    <div style="font-size:64px;text-align:center">${p.emoji}</div>
+    <img src="${p.img}" alt="${p.name}" style="width:100%;border-radius:12px;max-height:320px;object-fit:cover">
     <h3>${p.name}</h3>
     <p class="rating">★ ${p.rating} (${p.reviews} reviews) • ${p.cat}</p>
     <p>${p.desc}</p>
@@ -102,7 +102,7 @@ function renderCart() {
   $("cart-items").innerHTML = cart.length ? cart.map((c, i) => {
     const p = PRODUCTS.find(x => x.id === c.id);
     return `<div class="cart-item">
-      <div class="thumb">${p.emoji}</div>
+      <img class="cart-thumb" src="${p.img}" alt="${p.name}">
       <div style="flex:1">
         <strong>${p.name}</strong><br><span class="muted">Size: ${c.size} • ${tk(p.price)} each</span>
         <div class="qty">
