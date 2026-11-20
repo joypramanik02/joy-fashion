@@ -15,8 +15,22 @@ const DEFAULT_PRODUCTS = [
   { id: 12, name: "Leather Wallet — Brown", cat: "Accessories", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&q=80&auto=format&fit=crop", price: 850, old: 1150, rating: 4.6, reviews: 29, stock: 13, sizes: ["Free Size"], desc: "Genuine-style brown leather wallet, slim and durable." },
 ];
 
-const PRODUCTS = (() => { try { return JSON.parse(localStorage.getItem("jf_admin_products")) || DEFAULT_PRODUCTS; } catch { return DEFAULT_PRODUCTS; } })();
+let PRODUCTS = (() => { try { return JSON.parse(localStorage.getItem("jf_admin_products")) || DEFAULT_PRODUCTS; } catch { return DEFAULT_PRODUCTS; } })();
 const $ = (id) => document.getElementById(id);
+// Backend API: when the store is served by the Node backend (localhost:3000 or
+// your deployed server), /api/* answers. On GitHub Pages there is no backend,
+// so every fetch fails fast and the store keeps working in demo mode (localStorage).
+let BACKEND_ON = false;
+async function apiFetch(path, opts) {
+  try {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 4000);
+    const r = await fetch(path, { ...(opts || {}), signal: ctrl.signal, headers: { "Content-Type": "application/json", ...((opts && opts.headers) || {}) } });
+    clearTimeout(t);
+    if (!r.ok) return null;
+    return await r.json();
+  } catch { return null; }
+}
 const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch { return d; } };
 const save = (k, v) => localStorage.setItem(k, JSON.stringify(v));
 const tk = (n) => "৳" + n.toLocaleString("en-IN");
@@ -140,9 +154,11 @@ function renderOrders() {
   </div>`).join("") : `<div class="empty">No orders yet — your placed orders will show here.</div>`;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   if (!$("products")) return; // admin page has no shop — skip store init
   $("year").textContent = new Date().getFullYear();
+  const fromApi = await apiFetch("/api/products");
+  if (Array.isArray(fromApi) && fromApi.length) { PRODUCTS = fromApi; BACKEND_ON = true; }
   renderProducts(); renderCart(); renderOrders();
   ["search", "category", "sort"].forEach(id => $(id).addEventListener("input", renderProducts));
   document.querySelectorAll("[data-cat]").forEach(a => a.addEventListener("click", () => { $("category").value = a.dataset.cat; renderProducts(); }));
@@ -160,14 +176,26 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   $("checkout-cancel").addEventListener("click", () => $("checkout-modal").classList.remove("open"));
   $("order-done").addEventListener("click", () => $("checkout-modal").classList.remove("open"));
-  $("checkout-form").addEventListener("submit", (e) => {
+  $("checkout-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const t = cartTotals();
-    const id = "JF-" + Date.now().toString().slice(-6);
+    const payload = {
+      name: $("co-name").value, phone: $("co-phone").value, address: $("co-address").value,
+      city: $("co-city").value, payment: $("co-payment").value,
+      area: $("delivery-area").value === "120" ? "outside" : "dhaka",
+      items: cart.map(c => ({ id: c.id, size: c.size, qty: c.qty })),
+    };
+    let id = "JF-" + Date.now().toString().slice(-6);
+    let savedOrder = null;
+    if (BACKEND_ON) {
+      savedOrder = await apiFetch("/api/orders", { method: "POST", body: JSON.stringify(payload) });
+      if (savedOrder && savedOrder.id) id = savedOrder.id;
+      else { alert("Order could not be placed — please try again."); return; }
+    }
     const orders = load("jf_orders", []);
-    orders.unshift({
-      id, date: new Date().toLocaleDateString("en-GB"), name: $("co-name").value,
-      payment: $("co-payment").value, total: t.total, status: "Confirmed — we will call you",
+    orders.unshift(savedOrder || {
+      id, date: new Date().toLocaleDateString("en-GB"), name: payload.name,
+      payment: payload.payment, total: t.total, status: "Confirmed — we will call you",
       items: cart.map(c => { const p = PRODUCTS.find(x => x.id === c.id); return { name: p.name, size: c.size, qty: c.qty }; })
     });
     save("jf_orders", orders);

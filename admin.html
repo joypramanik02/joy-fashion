@@ -44,7 +44,7 @@
 <!-- Login -->
 <div id="login-view" class="login-card">
   <h2>Admin Login</h2>
-  <p class="muted">Demo admin panel. Default password: <strong>admin123</strong> — change it in <code>admin.js</code> (ADMIN_PASSWORD).</p>
+  <p class="muted" id="login-hint">Demo admin panel. Default password: <strong>admin123</strong> — change it in <code>admin.js</code> (ADMIN_PASSWORD).</p>
   <form id="login-form">
     <label>Password <input type="password" id="admin-pass" placeholder="Enter admin password" required></label>
     <p id="login-error" style="color:#dc2626;display:none">Wrong password, try again.</p>
@@ -122,7 +122,7 @@
       <button class="btn small" id="export-orders-csv">⬇ Orders (CSV for Excel)</button>
     </p>
     <div class="note">
-      <strong>⚠️ Honest note:</strong> this is a demo admin on a static website — data saves only in <em>this</em> browser, and the password is written in <code>admin.js</code>, so anyone who reads the code can see it. For a real business with real payments and data visible from any device, you need a backend (PHP + MySQL, like your CholoGhuri project) — I can build that next if you want.
+      <strong>Backend mode:</strong> when this store runs on the Node backend, products and orders live in the server database (<code>backend/data/db.json</code>) and the admin login is checked on the server with a hashed password + JWT token — visible from any device. On GitHub Pages there is no backend, so this panel falls back to demo mode: data saves only in <em>this</em> browser, and the demo password is written in <code>admin.js</code>.
     </div>
   </div>
 </div>

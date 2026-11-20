@@ -8,6 +8,13 @@ Built by **Joy Pramanik**, final-year CSE student at Southeast University, Dhaka
 
 Open `index.html` in a browser, or enable GitHub Pages from this repository (Settings → Pages → Deploy from branch → main).
 
+> **GitHub Pages is the demo version only** — it cannot run a server, so the store
+> falls back to localStorage demo mode there. The **real business version is the
+> backend** in `backend/` — run it locally (`cd backend && npm install && npm start`)
+> or deploy it free on Render (see `backend/README.md`). That version saves orders
+> on the server, calculates totals server-side, reduces stock automatically, and
+> secures the admin login with a hashed password + JWT.
+
 ## What's inside
 
 - `admin.html` + `admin.js` — Admin panel: login (default password `admin123`, change it in `admin.js`), dashboard stats, edit/delete products, add new products, view and update orders, export products/orders as JSON and orders as CSV for Excel
