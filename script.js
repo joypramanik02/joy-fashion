@@ -1,6 +1,6 @@
 // Joy Fashion — demo store. Edit PRODUCTS below to change products, prices or stock.
 // Prices in BDT. No real payment is taken — checkout is a demo order saved in localStorage.
-const PRODUCTS = [
+const DEFAULT_PRODUCTS = [
   { id: 1, name: "Handloom Saree — Purple & Gold", cat: "Women", img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80&auto=format&fit=crop", price: 2450, old: 3200, rating: 4.9, reviews: 47, stock: 6, sizes: ["Free Size"], desc: "Beautiful handloom saree with gold border, perfect for weddings and festivals." },
   { id: 2, name: "Handloom Saree — Black & Gold", cat: "Women", img: "https://images.unsplash.com/photo-1610030469668-8e9f641aaf27?w=800&q=80&auto=format&fit=crop", price: 2350, old: 3100, rating: 4.8, reviews: 33, stock: 5, sizes: ["Free Size"], desc: "Elegant black handloom saree with gold zari work." },
   { id: 3, name: "Men's Casual Shirt — Sky Blue", cat: "Men", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&q=80&auto=format&fit=crop", price: 950, old: 1250, rating: 4.6, reviews: 28, stock: 15, sizes: ["M", "L", "XL"], desc: "Breathable casual shirt for everyday wear in Dhaka weather." },
@@ -15,6 +15,7 @@ const PRODUCTS = [
   { id: 12, name: "Leather Wallet — Brown", cat: "Accessories", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&q=80&auto=format&fit=crop", price: 850, old: 1150, rating: 4.6, reviews: 29, stock: 13, sizes: ["Free Size"], desc: "Genuine-style brown leather wallet, slim and durable." },
 ];
 
+const PRODUCTS = (() => { try { return JSON.parse(localStorage.getItem("jf_admin_products")) || DEFAULT_PRODUCTS; } catch { return DEFAULT_PRODUCTS; } })();
 const $ = (id) => document.getElementById(id);
 const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch { return d; } };
 const save = (k, v) => localStorage.setItem(k, JSON.stringify(v));
@@ -140,6 +141,7 @@ function renderOrders() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (!$("products")) return; // admin page has no shop — skip store init
   $("year").textContent = new Date().getFullYear();
   renderProducts(); renderCart(); renderOrders();
   ["search", "category", "sort"].forEach(id => $(id).addEventListener("input", renderProducts));

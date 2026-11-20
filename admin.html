@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Joy Fashion</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .admin-wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 48px; }
+  .admin-wrap h1 { font-size: 1.8rem; margin-bottom: 6px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 20px 0; }
+  .stat { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,.05); }
+  .stat strong { font-size: 1.6rem; display: block; }
+  .stat span { color: #4b5563; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; margin-top: 12px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e5e7eb; font-size: .92rem; vertical-align: middle; }
+  th { background: #111827; color: #fff; }
+  table input, table select { width: 100%; padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 6px; font-size: .92rem; }
+  table img { width: 48px; height: 60px; object-fit: cover; border-radius: 6px; }
+  .table-scroll { overflow-x: auto; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px; margin-top: 12px; }
+  .form-grid label { font-weight: 700; font-size: .9rem; display: block; }
+  .form-grid input, .form-grid select, .form-grid textarea { width: 100%; padding: 9px 10px; border: 1px solid #d1d5db; border-radius: 8px; margin-top: 4px; font-size: .95rem; }
+  .btn.danger { background: #dc2626; box-shadow: none; }
+  .btn.small.danger { background: #dc2626; }
+  .login-card { max-width: 420px; margin: 80px auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 28px; box-shadow: 0 6px 24px rgba(0,0,0,.08); }
+  .login-card label { font-weight: 700; display: block; margin-bottom: 12px; }
+  .login-card input { width: 100%; padding: 11px 12px; border: 1px solid #d1d5db; border-radius: 8px; margin-top: 4px; font-size: 1rem; }
+  .tab-btns { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0 4px; }
+  .tab-btns button { padding: 9px 18px; border-radius: 999px; border: 1px solid #d1d5db; background: #fff; font-weight: 700; cursor: pointer; }
+  .tab-btns button.active { background: #db2777; color: #fff; border-color: #db2777; }
+  .note { background: #fef3c7; border: 1px solid #fbbf24; border-radius: 10px; padding: 12px 16px; color: #92400e; margin-top: 16px; }
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="index.html">👗 Joy Fashion — Admin</a>
+  <nav>
+    <a href="index.html">← Back to Store</a>
+    <button class="cart-btn" id="logout-btn" style="display:none">Logout</button>
+  </nav>
+</header>
+
+<!-- Login -->
+<div id="login-view" class="login-card">
+  <h2>Admin Login</h2>
+  <p class="muted">Demo admin panel. Default password: <strong>admin123</strong> — change it in <code>admin.js</code> (ADMIN_PASSWORD).</p>
+  <form id="login-form">
+    <label>Password <input type="password" id="admin-pass" placeholder="Enter admin password" required></label>
+    <p id="login-error" style="color:#dc2626;display:none">Wrong password, try again.</p>
+    <button class="btn" type="submit" style="width:100%">Login</button>
+  </form>
+</div>
+
+<!-- Dashboard -->
+<div id="admin-view" class="admin-wrap" style="display:none">
+  <h1>Dashboard</h1>
+  <p class="muted">Everything you change here is saved in this browser and shows on the store immediately.</p>
+
+  <div class="stat-grid">
+    <div class="stat"><strong id="stat-products">0</strong><span>Total Products</span></div>
+    <div class="stat"><strong id="stat-orders">0</strong><span>Total Orders</span></div>
+    <div class="stat"><strong id="stat-revenue">৳0</strong><span>Total Revenue</span></div>
+    <div class="stat"><strong id="stat-low">0</strong><span>Low Stock (≤ 5)</span></div>
+  </div>
+
+  <div class="tab-btns">
+    <button class="active" data-tab="products">📦 Products</button>
+    <button data-tab="orders">🧾 Orders</button>
+    <button data-tab="add">➕ Add Product</button>
+    <button data-tab="data">💾 Data &amp; Export</button>
+  </div>
+
+  <!-- Products -->
+  <div id="tab-products">
+    <h2>Products</h2>
+    <p class="muted">Edit price, stock or name right in the table, then click Save. Delete removes the product from the store.</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Photo</th><th>Name</th><th>Category</th><th>Price ৳</th><th>Old Price ৳</th><th>Stock</th><th></th></tr></thead>
+      <tbody id="product-rows"></tbody>
+    </table></div>
+    <p style="margin-top:12px"><button class="btn" id="save-products">💾 Save all changes</button>
+    <button class="btn outline" id="reset-products">Reset to default products</button></p>
+  </div>
+
+  <!-- Orders -->
+  <div id="tab-orders" style="display:none">
+    <h2>Orders</h2>
+    <p class="muted">Orders come from customers who checkout on the store — they are saved in this browser (localStorage). Change the status after you call / deliver.</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Items</th><th>Payment</th><th>Total</th><th>Status</th><th></th></tr></thead>
+      <tbody id="order-rows"></tbody>
+    </table></div>
+  </div>
+
+  <!-- Add product -->
+  <div id="tab-add" style="display:none">
+    <h2>Add New Product</h2>
+    <form id="add-form" class="form-grid">
+      <label>Name <input required id="np-name" placeholder="e.g. Men's Polo Shirt — Green"></label>
+      <label>Category
+        <select id="np-cat"><option>Men</option><option>Women</option><option>Kids</option><option>Accessories</option></select>
+      </label>
+      <label>Price (৳) <input required type="number" min="1" id="np-price" placeholder="990"></label>
+      <label>Old Price (৳) <input type="number" min="0" id="np-old" placeholder="1290"></label>
+      <label>Stock <input required type="number" min="0" id="np-stock" placeholder="10"></label>
+      <label>Rating <input type="number" min="1" max="5" step="0.1" id="np-rating" value="4.5"></label>
+      <label>Sizes (comma separated) <input id="np-sizes" value="M, L, XL"></label>
+      <label style="grid-column:1/-1">Photo URL <input required id="np-img" placeholder="https://…/photo.jpg — paste any image link, or an Unsplash link"></label>
+      <label style="grid-column:1/-1">Description <textarea id="np-desc" placeholder="Short description for customers"></textarea></label>
+      <button class="btn" type="submit" style="grid-column:1/-1">➕ Add product to store</button>
+    </form>
+  </div>
+
+  <!-- Data -->
+  <div id="tab-data" style="display:none">
+    <h2>Data &amp; Export</h2>
+    <p class="muted">Where is the data? Products and orders live in this browser's localStorage — keys <code>jf_admin_products</code> and <code>jf_orders</code>. Download them any time:</p>
+    <p>
+      <button class="btn small" id="export-products">⬇ Products (JSON)</button>
+      <button class="btn small" id="export-orders">⬇ Orders (JSON)</button>
+      <button class="btn small" id="export-orders-csv">⬇ Orders (CSV for Excel)</button>
+    </p>
+    <div class="note">
+      <strong>⚠️ Honest note:</strong> this is a demo admin on a static website — data saves only in <em>this</em> browser, and the password is written in <code>admin.js</code>, so anyone who reads the code can see it. For a real business with real payments and data visible from any device, you need a backend (PHP + MySQL, like your CholoGhuri project) — I can build that next if you want.
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© <span id="year">2026</span> Joy Fashion · Admin Panel · <a href="index.html">Back to Store</a></p>
+</footer>
+<script src="script.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
